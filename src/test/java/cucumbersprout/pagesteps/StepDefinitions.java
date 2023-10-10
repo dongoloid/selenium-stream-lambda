@@ -15,10 +15,10 @@ public class StepDefinitions extends BaseTest {
     public void allStepDefinitionsAreImplemented() {
     }
 
-    @Then("the scenario passes")
-    public void theScenarioPasses() {
+    @Then("the scenario passes {string}")
+    public void theScenarioPasses(String string) {
         Assertions.assertEquals("Awesome Controls overview", gridComp.CheckIfPageLoaded(), "Header is not equal");
-        gridComp.GetTableRowCells();
+        gridComp.GetTableRowCells(string);
     }
 
 }
