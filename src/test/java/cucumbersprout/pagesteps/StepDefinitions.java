@@ -1,24 +1,23 @@
 package cucumbersprout.pagesteps;
 
-import cucumbersprout.pagesteps.BaseTest;
-import cucumbersprout.webpage.GridComp;
 import io.cucumber.java.en.*;
 import org.junit.jupiter.api.Assertions;
 
 public class StepDefinitions extends BaseTest {
 
-    @Given("an example scenario")
+    @Given("the page loads successfully")
     public void anExampleScenario() {
-    }
-
-    @When("all step definitions are implemented")
-    public void allStepDefinitionsAreImplemented() {
-    }
-
-    @Then("the scenario passes {string}")
-    public void theScenarioPasses(String string) {
         Assertions.assertEquals("Awesome Controls overview", gridComp.CheckIfPageLoaded(), "Header is not equal");
-        gridComp.GetTableRowCells(string);
+    }
+
+    @When("the user scrolls down to the table and looks for a row with ID {string}")
+    public void allStepDefinitionsAreImplemented(String string) {
+        gridComp.ScrollToRow(string);
+    }
+
+    @Then("the user validates each cell of the row")
+    public void theScenarioPasses() {
+        gridComp.PrintCellAndColumn("2011");
     }
 
 }

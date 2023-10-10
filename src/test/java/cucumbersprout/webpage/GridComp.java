@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,15 +20,30 @@ public class GridComp extends BasePage{
     private final By tableColumnHeaderNames = By.cssSelector("tbody.awe-hrow > tr > td >div");
     private final By tableRow = By.cssSelector("tr[data-g].awe-row");
 
-    public void GetTableRowCells(String rowId){
-        String value = MergeTableHeaderAndRow(rowId).get("Food").getText();
+    public void PrintCellAndColumn(String rowId){
+        System.out.println("Input Id number: " + rowId);
+        MergeTableHeaderAndRow(rowId).forEach((key, value) -> System.out.println(key + ": " + value.getText()));
+    }
+
+    public List<String> GetTableRowCells(String rowId){
+        return MergeTableHeaderAndRow(rowId)
+                .values()
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
+    public WebElement ScrollToRow(String rowId){
+        WebElement row = ScrollIntoView(driver.findElement(table))
+                .findElements(tableRow)
+                .stream()
+                .filter(e -> e.getAttribute("data-k").equals(rowId)).findAny().get();
+
+        return ScrollIntoView(row);
     }
 
     private WebElement GetTableRow(String rowId){
-        return ScrollIntoView(driver.findElement(table))
-                 .findElements(tableRow)
-                 .stream()
-                 .filter(e -> e.getAttribute("data-k").equals(rowId)).findAny().get();
+        return ScrollToRow(rowId);
     }
 
     private Map<String, WebElement> MergeTableHeaderAndRow(String rowId){
@@ -46,6 +60,7 @@ public class GridComp extends BasePage{
                 .collect(Collectors.toMap(columnNames::get, rowCells::get));
     }
 
+    //TODO: introduce wait
     public String CheckIfPageLoaded(){
         return driver.findElement(header).getText();
     }
