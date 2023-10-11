@@ -10,6 +10,10 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("cucumbersprout")
-@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME,
+        value="junit:target/cucumber-reports/Cucumber.xml," +
+                "json:target/cucumber-reports/Cucumber.json,"+
+                "html:target/cucumber-reports/Cucumber.html,"+
+                "timeline:target/cucumber-reports/CucumberTimeline")
 public class RunCucumberTest {
 }
