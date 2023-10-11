@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -52,7 +53,7 @@ public class GridComp extends BasePage{
                 .findElements(By.cssSelector("td"));
 
         return IntStream.range(0, columnNames.size()).boxed()
-                .collect(Collectors.toMap(columnNames::get, rowCells::get));
+                .collect(Collectors.toMap(columnNames::get, rowCells::get, (x, y) -> y, LinkedHashMap::new));
     }
 
 }
