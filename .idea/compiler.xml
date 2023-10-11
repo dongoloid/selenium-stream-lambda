@@ -6,11 +6,26 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+      </profile>
+      <profile name="Annotation profile for benedictcucumbatch" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/systems/manifold/manifold-ext/2023.1.28/manifold-ext-2023.1.28.jar" />
+          <entry name="$MAVEN_REPOSITORY$/systems/manifold/manifold/2023.1.28/manifold-2023.1.28.jar" />
+          <entry name="$MAVEN_REPOSITORY$/systems/manifold/manifold-rt/2023.1.28/manifold-rt-2023.1.28.jar" />
+          <entry name="$MAVEN_REPOSITORY$/systems/manifold/manifold-util/2023.1.28/manifold-util-2023.1.28.jar" />
+          <entry name="$MAVEN_REPOSITORY$/systems/manifold/manifold-ext-rt/2023.1.28/manifold-ext-rt-2023.1.28.jar" />
+        </processorPath>
         <module name="benedictcucumbatch" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_STRING" value="-Xplugin:Manifold " />
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="benedictcucumbatch" options="" />
+    </option>
   </component>
 </project>

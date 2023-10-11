@@ -11,26 +11,23 @@ public class BaseTest {
     protected GridComp gridComp;
     protected LandingPage landingPage;
 
-    @Before
-    private void SetUp()
+    protected void SetUp()
     {
-        StartUpBrowser();
-        gridComp = new GridComp(driver);
-    }
-
-    @AfterAll
-    private void TearDown()
-    {
-        driver.close();
-        driver.quit();
-    }
-    public BaseTest() {
-        StartUpBrowser();
         gridComp = new GridComp(driver);
         landingPage = new LandingPage(driver);
     }
 
-    private void StartUpBrowser()
+    protected void TearDown()
+    {
+        driver.close();
+        driver.quit();
+    }
+
+    public BaseTest() {
+        StartUpBrowser();
+    }
+
+    public void StartUpBrowser()
     {
         driver = new ChromeDriver();
         driver.get("https://demo.aspnetawesome.com/");

@@ -1,9 +1,23 @@
 package cucumbersprout.pagesteps;
 
+import cucumbersprout.webpage.GridComp;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import org.junit.jupiter.api.Assertions;
 
 public class StepDefinitions extends BaseTest {
+
+    @Before
+    public void startBrowser()
+    {
+        SetUp();
+    }
+
+    @After
+    public void quitBrowser(){
+        TearDown();
+    }
 
     @Given("the page loads successfully")
     public void anExampleScenario() {
