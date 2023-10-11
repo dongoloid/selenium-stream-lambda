@@ -7,17 +7,22 @@ public class StepDefinitions extends BaseTest {
 
     @Given("the page loads successfully")
     public void anExampleScenario() {
-        Assertions.assertEquals("Awesome Controls overview", gridComp.CheckIfPageLoaded(), "Header is not equal");
+        Assertions.assertEquals("Awesome Controls overview", landingPage.CheckIfPageLoaded(), "Header is not equal");
     }
 
-    @When("the user scrolls down to the table and looks for a row with ID {string}")
-    public void allStepDefinitionsAreImplemented(String string) {
-        gridComp.ScrollToRow(string);
+    @And("the user scrolls to the {string} component")
+    public void ScrollToComponent(String component){
+        gridComp.ScrollToComponent(component);
     }
 
-    @Then("the user validates each cell of the row")
-    public void theScenarioPasses() {
-        gridComp.PrintCellAndColumn("2011");
+    @When("the user looks for a row with ID {string}")
+    public void allStepDefinitionsAreImplemented(String id) {
+        gridComp.ScrollToRow(id);
+    }
+
+    @Then("the user should be able to validate the row values of ID {string}")
+    public void theScenarioPasses(String id) {
+        gridComp.PrintCellAndColumn(id);
     }
 
 }

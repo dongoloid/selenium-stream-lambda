@@ -15,22 +15,21 @@ public class GridComp extends BasePage{
         super(driver);
     }
 
-    private final By header = By.cssSelector("div.conthead > h1.fgrow");
     private final By table = By.cssSelector("div#Grid1.awe-grid.awe-hh.awe-ltr");
     private final By tableColumnHeaderNames = By.cssSelector("tbody.awe-hrow > tr > td >div");
     private final By tableRow = By.cssSelector("tr[data-g].awe-row");
+    private final By componentLabel = By.cssSelector("div.example > h2");
 
     public void PrintCellAndColumn(String rowId){
         System.out.println("Input Id number: " + rowId);
         MergeTableHeaderAndRow(rowId).forEach((key, value) -> System.out.println(key + ": " + value.getText()));
     }
 
-    public List<String> GetTableRowCells(String rowId){
-        return MergeTableHeaderAndRow(rowId)
-                .values()
-                .stream()
-                .map(WebElement::getText)
-                .collect(Collectors.toList());
+    public WebElement ScrollToComponent(String label){
+        WebElement eLabel = driver.findElements(componentLabel)
+                .stream().filter(l -> l.getText().contains(label)).findFirst().orElse(null);
+
+        return ScrollIntoView(eLabel);
     }
 
     public WebElement ScrollToRow(String rowId){
@@ -42,10 +41,6 @@ public class GridComp extends BasePage{
         return ScrollIntoView(row);
     }
 
-    private WebElement GetTableRow(String rowId){
-        return ScrollToRow(rowId);
-    }
-
     private Map<String, WebElement> MergeTableHeaderAndRow(String rowId){
         List<String> columnNames = driver.findElement(table)
                 .findElements(tableColumnHeaderNames)
@@ -53,15 +48,11 @@ public class GridComp extends BasePage{
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
 
-        List<WebElement> rowCells = GetTableRow(rowId)
+        List<WebElement> rowCells = ScrollToRow(rowId)
                 .findElements(By.cssSelector("td"));
 
         return IntStream.range(0, columnNames.size()).boxed()
                 .collect(Collectors.toMap(columnNames::get, rowCells::get));
     }
 
-    //TODO: introduce wait
-    public String CheckIfPageLoaded(){
-        return driver.findElement(header).getText();
-    }
 }
