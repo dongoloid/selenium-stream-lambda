@@ -1,9 +1,21 @@
 package cucumbersprout.pagesteps;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import org.junit.jupiter.api.Assertions;
 
 public class StepDefinitions extends BaseTest {
+
+    @Before
+    public void setUp(){
+        SetUp();
+    }
+
+    @After
+    public void tearDown(){
+        TearDown();
+    }
 
     @Given("the page loads successfully")
     public void anExampleScenario() {

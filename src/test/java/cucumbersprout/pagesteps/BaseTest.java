@@ -2,7 +2,6 @@ package cucumbersprout.pagesteps;
 
 import cucumbersprout.webpage.GridComp;
 import cucumbersprout.webpage.LandingPage;
-import io.cucumber.java.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -11,23 +10,20 @@ public class BaseTest {
     protected GridComp gridComp;
     protected LandingPage landingPage;
 
-    @Before
-    private void SetUp()
+    protected void SetUp()
     {
-        StartUpBrowser();
         gridComp = new GridComp(driver);
+        landingPage = new LandingPage(driver);
     }
 
-    @AfterAll
-    private void TearDown()
+    protected void TearDown()
     {
         driver.close();
         driver.quit();
     }
+
     public BaseTest() {
         StartUpBrowser();
-        gridComp = new GridComp(driver);
-        landingPage = new LandingPage(driver);
     }
 
     private void StartUpBrowser()
