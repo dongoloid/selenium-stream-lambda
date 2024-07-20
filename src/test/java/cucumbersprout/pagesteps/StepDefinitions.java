@@ -19,12 +19,12 @@ public class StepDefinitions extends BaseTest {
 
     @Given("the page loads successfully")
     public void anExampleScenario() {
-        Assertions.assertEquals("Awesome Controls overview", landingPage.CheckIfPageLoaded(), "Header is not equal");
+        Assertions.assertEquals("ASP.net Core Awesome Controls overview", landingPage.CheckIfPageLoaded(), "Header is not equal");
     }
 
     @And("the user scrolls to the {string} component")
     public void ScrollToComponent(String component){
-        gridComp.ScrollToComponent(component);
+        gridComp.ScrollToElement(component);
     }
 
     @When("the user looks for a row with ID {string}")

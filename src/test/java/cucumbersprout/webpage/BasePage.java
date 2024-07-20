@@ -1,6 +1,7 @@
 package cucumbersprout.webpage;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -11,9 +12,11 @@ import java.time.Duration;
 
 public class BasePage {
     protected WebDriver driver;
+    protected WebDriverWait wait;
 
-    protected BasePage(WebDriver driver) {
+    protected BasePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
+        this.wait = wait;
     }
 
     /**
@@ -49,10 +52,20 @@ public class BasePage {
     /**
      * Looks for an element then scrolls to it until it's visible on the screen.
      */
-    protected WebElement ScrollIntoView(WebElement element){
+    protected WebElement MoveToElement(WebElement element){
         Actions actions = new Actions(driver);
         actions.moveToElement(element);
         actions.perform();
+
+        return element;
+    }
+
+    /**
+     * Looks for an element then scrolls to it until it's visible on the screen.
+     */
+    protected WebElement ScrollIntoView(WebElement element){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView({ behavior: \"instant\", block: \"end\" });", element);
 
         return element;
     }
